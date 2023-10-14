@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  height: 100px;
+
+  .rightPartLinks {
+    margin-left: 50px;
+
+    a {
+      color: white;
+      margin-right: 5px;
+    }
+  }
+
+  .LeftPartLinks {
+    margin-right: 50px;
+
+    .search {
+      color: #6c9dd9;
+      margin-right: 20px;
+    }
+
+    .profile {
+      color: #6c9dd9;
+    }
+  }
+}

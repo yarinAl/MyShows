@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(35, 32, 32);
+  height: 400px;
+  width: 1200px;
+  margin: auto;
+  position: relative;
+  margin-top: 20px;
+
+  .ratings {
+    background-color: #636464;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 50px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border-top-right-radius: 0;
+    color: aliceblue;
+  }
+  .text-content {
+    margin: 30px 30px 30px 20px;
+    color: aliceblue;
+  }
+  .seasons {
+    color: aliceblue;
+    position: absolute;
+    right: 0;
+    bottom: 100px;
+    right: 100px;
+  }
+}
+
+.list-item {
+  color: white;
+}

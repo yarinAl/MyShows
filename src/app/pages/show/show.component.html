@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="ratings">7 stars Rating</div>
+  <img [src]="show?.image" alt="" srcset="" />
+  <div class="text-content">
+    <h2>{{ show?.name }}</h2>
+    <p [innerHTML]="show?.summary"></p>
+  </div>
+  <div class="seasons">
+    <mat-form-field>
+      <mat-select [formControl]="selectedOption" placeholder="Season 1">
+        <mat-option *ngFor="let season of seasons" [value]="season.id">
+          Season {{ season.number }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<ul>
+  <li class="list-item" *ngFor="let episode of episodes">
+    episode {{ episode.number }} - {{ episode.name }}
+  </li>
+</ul>
