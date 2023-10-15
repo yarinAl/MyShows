@@ -23,3 +23,20 @@ login / register
 components:
 header
 show (with image + favorite button + ...)
+
+export interface Show {
+id: number;
+name: string;
+seasons: Season[];
+}
+
+interface Season {
+id: string;
+number: number;
+episodes: Episode[];
+}
+
+interface Episode {
+id: string;
+name: string;
+}

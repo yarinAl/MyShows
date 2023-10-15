@@ -1,3 +1,5 @@
+import { Season } from './show.interface'
+
 export interface ShowFromApi {
   id: number
   name: string
@@ -5,4 +7,5 @@ export interface ShowFromApi {
     original: string
   }
   summary: string
+  seasons: Season[]
 }
