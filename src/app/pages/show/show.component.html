@@ -17,7 +17,11 @@
 </div>
 
 <ul>
-  <li class="list-item" *ngFor="let episode of episodes">
+  <li
+    [routerLink]="'/episode/' + [episode.id]"
+    class="list-item"
+    *ngFor="let episode of episodes"
+  >
     episode {{ episode.number }} - {{ episode.name }}
   </li>
 </ul>

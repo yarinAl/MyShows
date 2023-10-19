@@ -10,6 +10,7 @@ export class ShowsService {
   private apiUrl = 'https://api.tvmaze.com'
   private apiUrlShows = `${this.apiUrl}/shows`
   private apiUrlSeasons = `${this.apiUrl}/seasons`
+  private apiUrlEpisode = `${this.apiUrl}/episodes`
 
   private showsSubject = new BehaviorSubject<Show[] | null>(null)
   shows$ = this.showsSubject.asObservable()
@@ -120,36 +121,9 @@ export class ShowsService {
         })
       )
   }
-  private addEpisodesToCache(
-    showId: number | null,
-    seasonId: number | null,
-    episodes: Episode[]
-  ): void {
-    if (showId === null || seasonId === null) {
-      return
-    }
 
-    const cachedShows = this.showsSubject.value
-
-    if (!cachedShows) {
-      return
-    }
-
-    const showToUpdate = cachedShows.find((show) => show.id === showId)
-    if (!showToUpdate) {
-      return
-    }
-
-    const seasonToUpdate = showToUpdate.seasons?.find(
-      (season) => season.id === seasonId
-    )
-    if (!seasonToUpdate) {
-      return
-    }
-
-    seasonToUpdate.episodes = episodes
-
-    this.showsSubject.next(cachedShows)
+  fetchEpisodeById(episodeId: number) {
+    return this.http.get<Episode>(`${this.apiUrlEpisode}/${episodeId}`)
   }
 
   // helping functions
@@ -183,5 +157,37 @@ export class ShowsService {
       number: episode.number,
       name: episode.name,
     }
+  }
+
+  private addEpisodesToCache(
+    showId: number | null,
+    seasonId: number | null,
+    episodes: Episode[]
+  ): void {
+    if (showId === null || seasonId === null) {
+      return
+    }
+
+    const cachedShows = this.showsSubject.value
+
+    if (!cachedShows) {
+      return
+    }
+
+    const showToUpdate = cachedShows.find((show) => show.id === showId)
+    if (!showToUpdate) {
+      return
+    }
+
+    const seasonToUpdate = showToUpdate.seasons?.find(
+      (season) => season.id === seasonId
+    )
+    if (!seasonToUpdate) {
+      return
+    }
+
+    seasonToUpdate.episodes = episodes
+
+    this.showsSubject.next(cachedShows)
   }
 }
