@@ -12,7 +12,8 @@ export interface Season {
   episodes: Episode[]
 }
 
-interface Episode {
+export interface Episode {
   id: number
   number: number
+  name: string
 }

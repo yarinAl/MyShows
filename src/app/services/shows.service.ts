@@ -2,9 +2,8 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable, SecurityContext } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import { BehaviorSubject, Observable, map, of, tap } from 'rxjs'
-import { EpisodesFromApi } from '../interfaces/episodes-from-api.interface'
 import { ShowFromApi } from '../interfaces/show-from-api.interface'
-import { Season, Show } from '../interfaces/show.interface'
+import { Episode, Season, Show } from '../interfaces/show.interface'
 
 @Injectable()
 export class ShowsService {
@@ -31,7 +30,6 @@ export class ShowsService {
       ),
       tap((shows) => {
         this.showsSubject.next(shows)
-        console.log(shows)
       })
     )
   }
@@ -58,12 +56,10 @@ export class ShowsService {
 
   fetchSeasons(id: number): Observable<Season[]> {
     const cachedShows = this.showsSubject.value
-    console.log(cachedShows)
 
     if (cachedShows) {
       const cachedShow = cachedShows.find((show) => show.id === id)
       if (cachedShow && cachedShow.seasons && cachedShow.seasons.length > 0) {
-        console.log(cachedShow.seasons)
         return of(cachedShow.seasons)
       }
     }
@@ -85,16 +81,75 @@ export class ShowsService {
       const showToUpdate = cachedShows.find((show) => show.id === showId)
       if (showToUpdate) {
         showToUpdate.seasons = seasons
-        this.showsSubject.next(cachedShows) // Update the BehaviorSubject with modified shows list
+        this.showsSubject.next(cachedShows)
       }
     }
   }
   //---------------------------------------------------------------------------
 
-  fetchEpisodes(seasonId: number | null): Observable<EpisodesFromApi[]> {
-    return this.http.get<EpisodesFromApi[]>(
-      `${this.apiUrlSeasons}/${seasonId}/episodes`
+  fetchEpisodes(
+    seasonId: number | null,
+    showId: number | null
+  ): Observable<Episode[]> {
+    const cachedShows = this.showsSubject.value
+
+    if (cachedShows) {
+      const cachedShow = cachedShows.find((show) => show.id === showId)
+      if (cachedShow && cachedShow.seasons && cachedShow.seasons.length > 0) {
+        const cachedSeason = cachedShow.seasons.find(
+          (season) => season.id === seasonId
+        )
+        if (
+          cachedSeason &&
+          cachedSeason.episodes &&
+          cachedSeason.episodes.length > 0
+        ) {
+          return of(cachedSeason.episodes)
+        }
+      }
+    }
+
+    return this.http
+      .get<Episode[]>(`${this.apiUrlSeasons}/${seasonId}/episodes`)
+      .pipe(
+        map((episodes: Episode[]) =>
+          episodes.map((episode) => this.convertApiEpisodeToEpisode(episode))
+        ),
+        tap((episodes) => {
+          this.addEpisodesToCache(showId, seasonId, episodes)
+        })
+      )
+  }
+  private addEpisodesToCache(
+    showId: number | null,
+    seasonId: number | null,
+    episodes: Episode[]
+  ): void {
+    if (showId === null || seasonId === null) {
+      return
+    }
+
+    const cachedShows = this.showsSubject.value
+
+    if (!cachedShows) {
+      return
+    }
+
+    const showToUpdate = cachedShows.find((show) => show.id === showId)
+    if (!showToUpdate) {
+      return
+    }
+
+    const seasonToUpdate = showToUpdate.seasons?.find(
+      (season) => season.id === seasonId
     )
+    if (!seasonToUpdate) {
+      return
+    }
+
+    seasonToUpdate.episodes = episodes
+
+    this.showsSubject.next(cachedShows)
   }
 
   // helping functions
@@ -119,6 +174,14 @@ export class ShowsService {
       id: season.id,
       number: season.number,
       episodes: (season.episodes = []),
+    }
+  }
+
+  private convertApiEpisodeToEpisode(episode: Episode): Episode {
+    return {
+      id: episode.id,
+      number: episode.number,
+      name: episode.name,
     }
   }
 }

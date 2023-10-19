@@ -46,7 +46,7 @@ export class ShowComponent implements OnInit {
     this.selectedOption.valueChanges.subscribe((value) => {
       this.seasonId = Number(value)
       this.apiService
-        .fetchEpisodes(this.seasonId)
+        .fetchEpisodes(this.seasonId, this.showId)
         .subscribe((episodes: EpisodesFromApi[]) => {
           this.episodes = episodes
         })

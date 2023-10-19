@@ -1,8 +1,12 @@
 # TODO - no design!!!!!!!
 
+node-cache
+
 1.  Use cache for seasons and episodes.
 
 2.  Create episode page
+
+3.  fix 2 things episode-from-api and season-from-api must be added again and checked
 
 ## DB:
 
