@@ -1,1 +1,9 @@
-<p style="color: aliceblue">Episode Name: {{ episode?.name }}</p>
+<h2 class="header">Episode {{ episode?.number }}: {{ episode?.name }}</h2>
+<img
+  width="500px"
+  height="300px"
+  [src]="episode?.image"
+  [alt]="episode?.name"
+  srcset=""
+/>
+<h4 class="summary" [innerHTML]="episode?.summary"></h4>

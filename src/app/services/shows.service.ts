@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable, SecurityContext } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import { BehaviorSubject, Observable, map, of, tap } from 'rxjs'
+import { EpisodeFromApi } from '../interfaces/episode-from-api.interface'
 import { ShowFromApi } from '../interfaces/show-from-api.interface'
 import { Episode, Season, Show } from '../interfaces/show.interface'
 
@@ -111,9 +112,9 @@ export class ShowsService {
     }
 
     return this.http
-      .get<Episode[]>(`${this.apiUrlSeasons}/${seasonId}/episodes`)
+      .get<EpisodeFromApi[]>(`${this.apiUrlSeasons}/${seasonId}/episodes`)
       .pipe(
-        map((episodes: Episode[]) =>
+        map((episodes: EpisodeFromApi[]) =>
           episodes.map((episode) => this.convertApiEpisodeToEpisode(episode))
         ),
         tap((episodes) => {
@@ -123,7 +124,13 @@ export class ShowsService {
   }
 
   fetchEpisodeById(episodeId: number) {
-    return this.http.get<Episode>(`${this.apiUrlEpisode}/${episodeId}`)
+    return this.http
+      .get<EpisodeFromApi>(`${this.apiUrlEpisode}/${episodeId}`)
+      .pipe(
+        map((episode: EpisodeFromApi) =>
+          this.convertApiEpisodeToEpisode(episode)
+        )
+      )
   }
 
   // helping functions
@@ -151,11 +158,22 @@ export class ShowsService {
     }
   }
 
-  private convertApiEpisodeToEpisode(episode: Episode): Episode {
+  private convertApiEpisodeToEpisode(episode: EpisodeFromApi): Episode {
+    const summary = this.domSanitizer.sanitize(
+      SecurityContext.HTML,
+      episode.summary
+    )
+    const imageUrl =
+      episode.image && episode.image.original
+        ? episode.image.original
+        : 'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg'
+
     return {
       id: episode.id,
       number: episode.number,
       name: episode.name,
+      image: imageUrl,
+      summary: summary ?? '',
     }
   }
 

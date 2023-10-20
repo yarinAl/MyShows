@@ -16,4 +16,6 @@ export interface Episode {
   id: number
   number: number
   name: string
+  image: string
+  summary: string
 }
