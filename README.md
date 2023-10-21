@@ -2,8 +2,6 @@
 
 node-cache
 
-1.  Create episode page
-
 2.  fix 2 things episode-from-api and season-from-api must be added again and checked
 3.  refactor code (another service or 2 if needed and more order also no duplicated code)
 

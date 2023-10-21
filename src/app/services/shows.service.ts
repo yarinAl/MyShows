@@ -41,13 +41,10 @@ export class ShowsService {
   }
   //---------------------------------------------------------------------------
   fetchShowById(id: number): Observable<Show> {
-    const cachedShows = this.showsSubject.value
+    const cachedShow = this.getCachedShow(id)
 
-    if (cachedShows) {
-      const cachedShow = cachedShows.find((show) => show.id === id)
-      if (cachedShow) {
-        return of(cachedShow)
-      }
+    if (cachedShow) {
+      return of(cachedShow)
     }
 
     return this.http
@@ -57,13 +54,10 @@ export class ShowsService {
   //---------------------------------------------------------------------------
 
   fetchSeasons(id: number): Observable<Season[]> {
-    const cachedShows = this.showsSubject.value
+    const cachedShow = this.getCachedShow(id)
 
-    if (cachedShows) {
-      const cachedShow = cachedShows.find((show) => show.id === id)
-      if (cachedShow && cachedShow.seasons && cachedShow.seasons.length > 0) {
-        return of(cachedShow.seasons)
-      }
+    if (cachedShow && cachedShow.seasons && cachedShow.seasons.length > 0) {
+      return of(cachedShow.seasons)
     }
 
     return this.http.get<Season[]>(`${this.apiUrlShows}/${id}/seasons`).pipe(
@@ -79,12 +73,10 @@ export class ShowsService {
   private addSeasonsToCache(showId: number, seasons: Season[]): void {
     const cachedShows = this.showsSubject.value
 
-    if (cachedShows) {
-      const showToUpdate = cachedShows.find((show) => show.id === showId)
-      if (showToUpdate) {
-        showToUpdate.seasons = seasons
-        this.showsSubject.next(cachedShows)
-      }
+    const showToUpdate = this.getCachedShow(showId)
+    if (showToUpdate) {
+      showToUpdate.seasons = seasons
+      this.showsSubject.next(cachedShows)
     }
   }
   //---------------------------------------------------------------------------
@@ -94,20 +86,18 @@ export class ShowsService {
     showId: number | null
   ): Observable<Episode[]> {
     const cachedShows = this.showsSubject.value
+    const cachedShow = this.getCachedShow(showId)
 
-    if (cachedShows) {
-      const cachedShow = cachedShows.find((show) => show.id === showId)
-      if (cachedShow && cachedShow.seasons && cachedShow.seasons.length > 0) {
-        const cachedSeason = cachedShow.seasons.find(
-          (season) => season.id === seasonId
-        )
-        if (
-          cachedSeason &&
-          cachedSeason.episodes &&
-          cachedSeason.episodes.length > 0
-        ) {
-          return of(cachedSeason.episodes)
-        }
+    if (cachedShow && cachedShow.seasons && cachedShow.seasons.length > 0) {
+      const cachedSeason = cachedShow.seasons.find(
+        (season) => season.id === seasonId
+      )
+      if (
+        cachedSeason &&
+        cachedSeason.episodes &&
+        cachedSeason.episodes.length > 0
+      ) {
+        return of(cachedSeason.episodes)
       }
     }
 
@@ -115,7 +105,9 @@ export class ShowsService {
       .get<EpisodeFromApi[]>(`${this.apiUrlSeasons}/${seasonId}/episodes`)
       .pipe(
         map((episodes: EpisodeFromApi[]) =>
-          episodes.map((episode) => this.convertApiEpisodeToEpisode(episode))
+          episodes.map((episode) =>
+            this.convertApiEpisodeFromApiToEpisode(episode)
+          )
         ),
         tap((episodes) => {
           this.addEpisodesToCache(showId, seasonId, episodes)
@@ -128,7 +120,7 @@ export class ShowsService {
       .get<EpisodeFromApi>(`${this.apiUrlEpisode}/${episodeId}`)
       .pipe(
         map((episode: EpisodeFromApi) =>
-          this.convertApiEpisodeToEpisode(episode)
+          this.convertApiEpisodeFromApiToEpisode(episode)
         )
       )
   }
@@ -158,7 +150,7 @@ export class ShowsService {
     }
   }
 
-  private convertApiEpisodeToEpisode(episode: EpisodeFromApi): Episode {
+  private convertApiEpisodeFromApiToEpisode(episode: EpisodeFromApi): Episode {
     const summary = this.domSanitizer.sanitize(
       SecurityContext.HTML,
       episode.summary
@@ -188,24 +180,23 @@ export class ShowsService {
 
     const cachedShows = this.showsSubject.value
 
-    if (!cachedShows) {
-      return
+    const showToUpdate = this.getCachedShow(showId)
+    if (showToUpdate) {
+      const seasonToUpdate = showToUpdate.seasons?.find(
+        (season) => season.id === seasonId
+      )
+      if (seasonToUpdate) seasonToUpdate.episodes = episodes
     }
-
-    const showToUpdate = cachedShows.find((show) => show.id === showId)
-    if (!showToUpdate) {
-      return
-    }
-
-    const seasonToUpdate = showToUpdate.seasons?.find(
-      (season) => season.id === seasonId
-    )
-    if (!seasonToUpdate) {
-      return
-    }
-
-    seasonToUpdate.episodes = episodes
 
     this.showsSubject.next(cachedShows)
+  }
+
+  getCachedShow(id: number | null): Show | undefined {
+    const cachedShows = this.showsSubject.value
+
+    if (cachedShows) {
+      return cachedShows.find((show) => show.id === id)
+    }
+    return
   }
 }

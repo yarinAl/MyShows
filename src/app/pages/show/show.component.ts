@@ -47,7 +47,6 @@ export class ShowComponent implements OnInit {
       this.apiService
         .fetchEpisodes(this.seasonId, this.showId)
         .subscribe((episodes: Episode[]) => {
-          console.log(episodes)
           this.episodes = episodes
         })
     })

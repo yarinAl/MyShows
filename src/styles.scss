@@ -3,7 +3,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: black !important;
+  background-color: black;
 }
 
 h1,
@@ -22,14 +22,32 @@ img {
 html,
 body {
   height: 100%;
-}
-body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+  scrollbar-color: #333 #f5f5f5; /* thumb and track color */
+  scrollbar-width: thin; /* can be set to "thin", "none", or "auto" */
 }
 
 a,
 button {
   all: unset;
   cursor: pointer;
+}
+
+/* This will change the track of the scrollbar (the background) */
+::-webkit-scrollbar {
+  width: 12px; /* width of the entire scrollbar */
+  background-color: #f5f5f5; /* color of the track */
+}
+
+/* This will change the button (the sliding part) */
+::-webkit-scrollbar-thumb {
+  background-color: #333; /* color of the scroll button */
+  border-radius: 6px; /* roundness of the scroll button */
+  border: 2px solid #f5f5f5; /* creates padding effect */
+}
+
+/* This changes the corner where both horizontal and vertical scrollbars meet */
+::-webkit-scrollbar-corner {
+  background-color: transparent;
 }
