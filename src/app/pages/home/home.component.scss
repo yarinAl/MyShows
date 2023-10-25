@@ -1,6 +1,6 @@
 :host {
   text-align: center;
-  background: #000000;
+  background: #121212;
   // width: min(90vw, 1200px);
   // display: block;
   // margin: auto;
@@ -10,41 +10,23 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     padding: 15px;
     gap: 30px;
-    background: rgb(0, 0, 0);
+    background: #121212;
 
     .show-grid-item {
       color: white;
-      background-color: rgba(18, 17, 17, 0.8);
-      border: 1px solid rgba(0, 0, 0, 0.8);
+      border: 1px solid #121212;
       font-size: 30px;
       text-align: center;
       transition: transform 0.3s;
       background-size: cover;
       height: 320px;
+      border-radius: 10px;
+
       &:hover {
-        transform: scale(0.95);
+        transform: scale(1.05);
       }
-
-      // &::before {
-      //   content: '';
-      //   position: absolute;
-      //   top: 0;
-      //   left: 0;
-      //   right: 0;
-      //   bottom: 0;
-      //   background: rgba(0, 0, 0, 0.3);
-      //   transition: background 500ms;
-      // }
-
-      // &:hover {
-      //   &::before {
-      //     background: unset;
-      //   }
-      // }
     }
-    // .show-grid-item:hover {
-    //   transform: scale(0.95);
-    // }
+
     .h2 {
       color: white;
     }
@@ -52,7 +34,7 @@
       display: block;
       position: relative;
       height: 100%;
-
+      border-radius: 10px;
       &::before {
         content: '';
         position: absolute;
@@ -60,7 +42,8 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.2);
         transition: background 500ms;
       }
 

@@ -1,9 +1,12 @@
 # TODO - no design!!!!!!!
 
-node-cache
+1. finish refactor
+2. add node-cache
+3. add profile page
+4. add login / register popup
+5. start working on database ??
 
-2.  fix 2 things episode-from-api and season-from-api must be added again and checked
-3.  refactor code (another service or 2 if needed and more order also no duplicated code)
+node-cache
 
 ## DB:
 
@@ -20,24 +23,3 @@ home
 show
 profile
 login / register
-
-components:
-header
-show (with image + favorite button + ...)
-
-export interface Show {
-id: number;
-name: string;
-seasons: Season[];
-}
-
-interface Season {
-id: string;
-number: number;
-episodes: Episode[];
-}
-
-interface Episode {
-id: string;
-name: string;
-}

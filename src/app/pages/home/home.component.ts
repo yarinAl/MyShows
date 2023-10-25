@@ -19,10 +19,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.apiService
-      .fetchData()
+      .getShows()
       .pipe(
         map((shows: Show[]) => {
-          return shows.slice(0, 32)
+          return shows.slice(0, 52)
         })
       )
       .subscribe((shows: Show[]) => {

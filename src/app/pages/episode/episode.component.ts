@@ -23,7 +23,7 @@ export class EpisodeComponent {
     this.route.params.subscribe((params: Params) => {
       this.episodeId = +params['id']
       this.apisService
-        .fetchEpisodeById(this.episodeId)
+        .getEpisode(this.episodeId)
         .subscribe((episode: Episode) => {
           this.episode = episode
         })

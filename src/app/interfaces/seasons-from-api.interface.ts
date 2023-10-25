@@ -1,4 +1,4 @@
-export interface SeasonsFromApi {
+export interface SeasonFromApi {
   id: number
   number: number
 }
