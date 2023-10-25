@@ -1,6 +1,7 @@
 {
   "name": "my-shows",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -37,5 +38,18 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "typescript": "~4.9.4"
-  }
+  },
+  "description": "1. finish refactor 2. add node-cache 3. add profile page 4. add login / register popup 5. start working on database ??",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yarinAl/MyShows.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yarinAl/MyShows/issues"
+  },
+  "homepage": "https://github.com/yarinAl/MyShows#readme"
 }
