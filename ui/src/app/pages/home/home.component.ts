@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
       .getShows()
       .pipe(
         map((shows: Show[]) => {
-          return shows.slice(0, 52)
+          return shows.slice(0, 24)
         })
       )
       .subscribe((shows: Show[]) => {

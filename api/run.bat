@@ -1,0 +1,1 @@
+start cmd /k ngrok http --host-header=localhost 3000 && node main.js
