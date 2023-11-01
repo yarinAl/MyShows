@@ -34,7 +34,42 @@
     right: 100px;
   }
 }
+.papa {
+  display: grid;
+  place-items: center;
+}
+.list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+  max-width: 1240px;
 
-.list-item {
-  color: white;
+  .list-item {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    background-color: #312e2e;
+    padding: 10px;
+    border-radius: 2px;
+
+    .top-episode {
+      color: aliceblue;
+      font-size: 0.99rem;
+      display: flex;
+      flex-direction: row;
+      .left {
+        margin-top: 3px;
+      }
+      .right {
+        transform: scale(0.85);
+      }
+    }
+    .bot-episode {
+      color: rgb(183, 188, 193);
+      margin-left: 3px;
+    }
+  }
+  .list-item:hover {
+    background-color: #676c6f;
+  }
 }

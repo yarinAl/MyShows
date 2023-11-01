@@ -15,13 +15,18 @@
     </mat-form-field>
   </div>
 </div>
-
-<ul>
-  <li
-    [routerLink]="'/episode/' + [episode.id]"
-    class="list-item"
-    *ngFor="let episode of episodes"
-  >
-    episode {{ episode.number }} - {{ episode.name }}
-  </li>
-</ul>
+<div class="papa">
+  <ul class="list-container">
+    <li class="list-item" *ngFor="let episode of episodes">
+      <a [routerLink]="'/episode/' + [episode.id]">
+        <div class="top-episode">
+          <div class="right">
+            <mat-icon>info</mat-icon>
+          </div>
+          <div class="left">Episode {{ episode.number }}</div>
+        </div>
+        <div class="bot-episode">{{ episode.name }}</div>
+      </a>
+    </li>
+  </ul>
+</div>

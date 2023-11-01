@@ -1,1 +1,5 @@
-start cmd /k ngrok http --host-header=localhost 3000 && node main.js
+@echo off
+start cmd /k ngrok http --host-header=localhost 3000
+start cmd /k npm run start
+timeout /T 10
+start http://localhost:3000/shows

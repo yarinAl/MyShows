@@ -1,8 +1,0 @@
-shows
-https://api.tvmaze.com/shows
-seasons
-https://api.tvmaze.com/shows/1/seasons
-episodes
-https://api.tvmaze.com/seasons/1/episodes
-single episode
-https://api.tvmaze.com/episodes/1

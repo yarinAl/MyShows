@@ -1,10 +1,9 @@
 # TODO - no design!!!!!!!
 
-1. finish refactor
-2. add node-cache
-3. add profile page
-4. add login / register popup
-5. start working on database ??
+1. finish refactor - show service
+2. add profile page
+3. add login / register popup
+4. start working on database
 
 node-cache
 

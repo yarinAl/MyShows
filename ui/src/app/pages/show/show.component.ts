@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
 import { FormControl, ReactiveFormsModule } from '@angular/forms'
+import { MatIconModule } from '@angular/material/icon'
 import { MatSelectModule } from '@angular/material/select'
 import { ActivatedRoute, Params, RouterModule } from '@angular/router'
 import { SeasonFromApi } from 'src/app/interfaces/seasons-from-api.interface'
@@ -10,7 +11,13 @@ import { ShowsService } from 'src/app/services/shows.service'
 @Component({
   selector: 'app-show',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatSelectModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatIconModule,
+  ],
   templateUrl: './show.component.html',
   styleUrls: ['./show.component.scss'],
 })

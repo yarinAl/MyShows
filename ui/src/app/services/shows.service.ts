@@ -1,15 +1,11 @@
 import { HttpClient } from '@angular/common/http'
-import { Injectable, SecurityContext } from '@angular/core'
-import { DomSanitizer } from '@angular/platform-browser'
-import { BehaviorSubject, Observable, firstValueFrom, map, of, tap } from 'rxjs'
-import { EpisodeFromApi } from '../interfaces/episode-from-api.interface'
-import { SeasonFromApi } from '../interfaces/seasons-from-api.interface'
-import { ShowFromApi } from '../interfaces/show-from-api.interface'
+import { Injectable } from '@angular/core'
+import { BehaviorSubject, Observable, firstValueFrom, of, tap } from 'rxjs'
 import { Episode, Season, Show } from '../interfaces/show.interface'
 
 @Injectable()
 export class ShowsService {
-  private apiUrl = 'https://api.tvmaze.com'
+  private apiUrl = 'http://localhost:3000'
   private apiUrlShows = `${this.apiUrl}/shows`
   private apiUrlSeasons = `${this.apiUrl}/seasons`
   private apiUrlEpisode = `${this.apiUrl}/episodes`
@@ -17,7 +13,7 @@ export class ShowsService {
   private showsSubject = new BehaviorSubject<Show[] | null>(null)
   shows$ = this.showsSubject.asObservable()
 
-  constructor(private http: HttpClient, private domSanitizer: DomSanitizer) {}
+  constructor(private http: HttpClient) {}
 
   getShows(): Observable<Show[]> {
     const cachedShows = this.showsSubject.value
@@ -26,10 +22,7 @@ export class ShowsService {
       return of(cachedShows)
     }
 
-    return this.http.get<ShowFromApi[]>(this.apiUrlShows).pipe(
-      map((shows: ShowFromApi[]) =>
-        shows.map((show) => this.convertApiShowToShow(show))
-      ),
+    return this.http.get<Show[]>(this.apiUrlShows).pipe(
       tap((shows) => {
         this.showsSubject.next(shows)
       })
@@ -43,24 +36,18 @@ export class ShowsService {
       return of(cachedShow)
     }
 
-    return this.http
-      .get<ShowFromApi>(`${this.apiUrlShows}/${id}`)
-      .pipe(map((show: ShowFromApi) => this.convertApiShowToShow(show)))
+    return this.http.get<Show>(`${this.apiUrlShows}/${id}`)
   }
 
   getSeasons(showId: number): Observable<Season[]> {
     const cachedShow = this.getCachedShow(showId)
-
     if (cachedShow && cachedShow.seasons && cachedShow.seasons.length > 0) {
       return of(cachedShow.seasons)
     }
 
     return this.http
-      .get<SeasonFromApi[]>(`${this.apiUrlShows}/${showId}/seasons`)
+      .get<Season[]>(`${this.apiUrlShows}/${showId}/seasons`)
       .pipe(
-        map((seasons: SeasonFromApi[]) =>
-          seasons.map((season) => this.convertApiSeasonToSeason(season))
-        ),
         tap((seasons) => {
           this.addSeasonsToCache(showId, seasons)
         })
@@ -70,20 +57,15 @@ export class ShowsService {
   getEpisodes(seasonId: number, showId: number): Promise<Episode[]> {
     return new Promise(async (res, rej) => {
       const show = await firstValueFrom(this.getShow(showId))
-
       const season = show.seasons.find((s) => s.id === seasonId)
-
       if (season && season.episodes.length > 0) {
         res(season.episodes)
         return
       }
 
       this.http
-        .get<EpisodeFromApi[]>(`${this.apiUrlSeasons}/${seasonId}/episodes`)
+        .get<Episode[]>(`${this.apiUrlSeasons}/${seasonId}/episodes`)
         .pipe(
-          map((episodes: EpisodeFromApi[]) =>
-            episodes.map((episode) => this.convertApiEpisodeToEpisode(episode))
-          ),
           tap((episodes: Episode[]) => {
             this.addEpisodesToCache(showId, seasonId, episodes)
           })
@@ -95,13 +77,7 @@ export class ShowsService {
   }
 
   getEpisode(episodeId: number) {
-    return this.http
-      .get<EpisodeFromApi>(`${this.apiUrlEpisode}/${episodeId}`)
-      .pipe(
-        map((episode: EpisodeFromApi) =>
-          this.convertApiEpisodeToEpisode(episode)
-        )
-      )
+    return this.http.get<Episode>(`${this.apiUrlEpisode}/${episodeId}`)
   }
 
   private addSeasonsToCache(showId: number, seasons: Season[]): void {
@@ -134,49 +110,6 @@ export class ShowsService {
     }
 
     this.showsSubject.next(cachedShows)
-  }
-
-  private convertApiShowToShow(show: ShowFromApi): Show {
-    const summary = this.domSanitizer.sanitize(
-      SecurityContext.HTML,
-      show.summary
-    )
-
-    return {
-      id: show.id,
-      name: show.name,
-      image: show.image.original,
-      summary: summary ?? '',
-      seasons: [],
-    }
-  }
-
-  private convertApiSeasonToSeason(season: SeasonFromApi): Season {
-    return {
-      id: season.id,
-      number: season.number,
-      episodes: [],
-    }
-  }
-
-  private convertApiEpisodeToEpisode(episode: EpisodeFromApi): Episode {
-    const summary = this.domSanitizer.sanitize(
-      SecurityContext.HTML,
-      episode.summary
-    )
-
-    const imageUrl =
-      episode.image && episode.image.original
-        ? episode.image.original
-        : 'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg'
-
-    return {
-      id: episode.id,
-      number: episode.number,
-      name: episode.name,
-      image: imageUrl,
-      summary: summary ?? '',
-    }
   }
 
   private getCachedShow(id: number): Show | undefined {
