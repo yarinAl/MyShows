@@ -1,8 +1,8 @@
-import axios from 'axios'
+import api from '../apiCaller'
 import { EpisodeFromApi } from '../models/episode'
 
 export const getSeasonEpisodes = (seasonId: number) => {
-  return axios.get<EpisodeFromApi[]>(
+  return api.get<EpisodeFromApi[]>(
     `https://api.tvmaze.com/seasons/${seasonId}/episodes`
   )
 }

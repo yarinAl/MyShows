@@ -17,9 +17,7 @@ export const getShows = async () => {
 
   const showsData = await getShowsDAL()
 
-  const res = showsData.data.map((show: ShowFromApi) =>
-    convertApiShowToShow(show)
-  )
+  const res = showsData.map((show: ShowFromApi) => convertApiShowToShow(show))
 
   cache.set<Show[]>('getShows', res)
 
@@ -34,7 +32,7 @@ export const getShow = async (showId: number) => {
   }
 
   const showData = await getShowDAL(showId)
-  const res = convertApiShowToShow(showData.data)
+  const res = convertApiShowToShow(showData)
 
   cache.set<Show>('getShow', res)
 
@@ -50,7 +48,7 @@ export const getShowSeasons = async (showId: number) => {
 
   const showSeasonsData = await getShowSeasonsDAL(showId)
 
-  const res = showSeasonsData.data.map((season: SeasonFromApi) =>
+  const res = showSeasonsData.map((season: SeasonFromApi) =>
     convertApiSeasonToSeason(season)
   )
 

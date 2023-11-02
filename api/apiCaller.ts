@@ -1,5 +1,13 @@
-// import axios from "axios";
+import axios from 'axios'
 
-// const get = <T>(url:string): T => {
-//     return axios.get<T>(url)
-//   }
+const getFromApi = async <T>(url: string) => {
+  const res = await axios.get<T>(url)
+  const resTyped = res.data
+  return resTyped
+}
+
+const api = {
+  get: getFromApi,
+}
+
+export default api

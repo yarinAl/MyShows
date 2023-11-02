@@ -14,7 +14,7 @@ export const getSeasonEpisodes = async (seasonId: number) => {
 
   const SeasonEpisodesData = await getSeasonEpisodesDAL(seasonId)
 
-  const res = SeasonEpisodesData.data.map((seasonEpisode: EpisodeFromApi) =>
+  const res = SeasonEpisodesData.map((seasonEpisode: EpisodeFromApi) =>
     convertApiEpisodeToEpisode(seasonEpisode)
   )
 

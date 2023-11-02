@@ -12,7 +12,7 @@ export const getEpisode = async (episodeId: number) => {
 
   const episodeData = await getEpisodeDAL(episodeId)
 
-  const res = convertApiEpisodeToEpisode(episodeData.data)
+  const res = convertApiEpisodeToEpisode(episodeData)
 
   cache.set<Episode>(`getEpisode:${episodeId}`, res)
 
