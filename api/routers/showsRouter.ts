@@ -13,11 +13,11 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-  const shows = await getShowBLL(req.params.id)
+  const shows = await getShowBLL(Number(req.params.id))
   res.send(shows)
 })
 
 router.get('/:id/seasons', async (req, res) => {
-  const seasons = await getShowSeasonsBLL(req.params.id)
+  const seasons = await getShowSeasonsBLL(Number(req.params.id))
   res.send(seasons)
 })

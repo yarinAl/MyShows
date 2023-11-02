@@ -1,18 +1,24 @@
 import { getSeasonEpisodes as getSeasonEpisodesDAL } from '../DAL/seasonsDAL'
-import cache from '../cache'
+import cache from '../cache/cache'
 import { Episode, EpisodeFromApi } from '../models/episode'
 import { sanitize } from '../sanitizer'
 
-export const getSeasonEpisodes = async (seasonId) => {
-  const getSeasonEpisodesCache = cache.get('getSeasonEpisodes:' + seasonId)
+export const getSeasonEpisodes = async (seasonId: number) => {
+  const getSeasonEpisodesCache = cache.get<Episode[]>(
+    `getSeasonEpisodes:${seasonId}`
+  )
+
   if (getSeasonEpisodesCache) {
     return getSeasonEpisodesCache
   }
+
   const SeasonEpisodesData = await getSeasonEpisodesDAL(seasonId)
+
   const res = SeasonEpisodesData.data.map((seasonEpisode: EpisodeFromApi) =>
     convertApiEpisodeToEpisode(seasonEpisode)
   )
-  cache.set('getSeasonEpisodes:' + seasonId, res)
+
+  cache.set<Episode[]>(`getSeasonEpisodes:'${seasonId}`, res)
 
   return res
 }

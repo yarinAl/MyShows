@@ -3,43 +3,58 @@ import {
   getShowSeasons as getShowSeasonsDAL,
   getShows as getShowsDAL,
 } from '../DAL/showsDAL'
-import cache from '../cache'
+import cache from '../cache/cache'
 import { Season, SeasonFromApi } from '../models/season'
 import { Show, ShowFromApi } from '../models/show'
 import { sanitize } from '../sanitizer'
 
 export const getShows = async () => {
-  const getShowsCache = cache.get('getShows')
+  const getShowsCache = cache.get<Show[]>('getShows')
+
   if (getShowsCache) {
     return getShowsCache
   }
+
   const showsData = await getShowsDAL()
+
   const res = showsData.data.map((show: ShowFromApi) =>
     convertApiShowToShow(show)
   )
-  cache.set('getShows', res)
+
+  cache.set<Show[]>('getShows', res)
 
   return res
 }
 
-export const getShow = async (id) => {
-  const showData = await getShowDAL(id)
+export const getShow = async (showId: number) => {
+  const getShowCache = cache.get<Show>(`getShow:${showId}`)
+
+  if (getShowCache) {
+    return getShowCache
+  }
+
+  const showData = await getShowDAL(showId)
   const res = convertApiShowToShow(showData.data)
 
+  cache.set<Show>('getShow', res)
+
   return res
 }
 
-export const getShowSeasons = async (showId) => {
-  const getShowSeasonsCache = cache.get('getShowSeasons:' + showId)
+export const getShowSeasons = async (showId: number) => {
+  const getShowSeasonsCache = cache.get<Season[]>(`getShowSeasons:${showId}`)
+
   if (getShowSeasonsCache) {
     return getShowSeasonsCache
   }
 
   const showSeasonsData = await getShowSeasonsDAL(showId)
+
   const res = showSeasonsData.data.map((season: SeasonFromApi) =>
     convertApiSeasonToSeason(season)
   )
-  cache.set('getShowSeasons:' + showId, res)
+
+  cache.set<Season[]>(`getShowSeasons:${showId}`, res)
 
   return res
 }
