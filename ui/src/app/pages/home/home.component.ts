@@ -1,10 +1,8 @@
 import { CommonModule } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
-import { RouterModule } from '@angular/router'
-import { map } from 'rxjs'
+import { ActivatedRoute, RouterModule } from '@angular/router'
 import { Show } from 'src/app/interfaces/show.interface'
-import { ShowsService } from '../../services/shows.service'
 
 @Component({
   selector: 'app-home',
@@ -15,18 +13,11 @@ import { ShowsService } from '../../services/shows.service'
 })
 export class HomeComponent implements OnInit {
   shows: Show[] | null = null
-  constructor(private apiService: ShowsService) {}
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.apiService
-      .getShows()
-      .pipe(
-        map((shows: Show[]) => {
-          return shows.slice(0, 24)
-        })
-      )
-      .subscribe((shows: Show[]) => {
-        this.shows = shows
-      })
+    this.activatedRoute.data.subscribe(({ shows }) => {
+      this.shows = shows.slice(0, 24)
+    })
   }
 }

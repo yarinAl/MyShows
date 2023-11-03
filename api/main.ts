@@ -10,6 +10,14 @@ const port = 3000
 // app.use(express.json())
 app.use(cors())
 
+app.use('/home', () => {
+  // get all shows
+})
+
+app.use('/watch/:id', () => {
+  // get show
+})
+
 app.use('/shows', showsRouter)
 
 app.use('/seasons', seasonRouter)

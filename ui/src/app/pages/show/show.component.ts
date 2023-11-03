@@ -30,16 +30,16 @@ export class ShowComponent implements OnInit {
   seasonId: number | null = null
 
   constructor(
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private apiService: ShowsService
   ) {}
 
   ngOnInit(): void {
     //shows
-    this.route.params.subscribe((params: Params) => {
+    this.activatedRoute.params.subscribe((params: Params) => {
       this.showId = +params['id']
-      this.apiService.getShow(this.showId).subscribe((show: Show) => {
-        this.show = show
+      this.activatedRoute.data.subscribe(({ show }) => {
+        this.show = show as Show
       })
       //seasons
       this.apiService
@@ -51,11 +51,9 @@ export class ShowComponent implements OnInit {
     //episodes
     this.selectedOption.valueChanges.subscribe((value) => {
       this.seasonId = Number(value)
-      this.apiService
-        .getEpisodes(this.seasonId, this.showId)
-        .then((episodes: Episode[]) => {
-          this.episodes = episodes
-        })
+      this.apiService.getEpisodes(this.seasonId).then((episodes: Episode[]) => {
+        this.episodes = episodes
+      })
     })
   }
 }
