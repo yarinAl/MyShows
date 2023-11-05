@@ -8,11 +8,11 @@ import { Season, SeasonFromApi } from '../models/season'
 import { Show, ShowFromApi } from '../models/show'
 import { sanitize } from '../sanitizer'
 
-export const getShows = async () => {
+export const getShows = async (count?: number) => {
   const getShowsCache = cache.get<Show[]>('getShows')
 
   if (getShowsCache) {
-    return getShowsCache
+    return count ? getShowsCache.slice(0, count) : getShowsCache
   }
 
   const showsData = await getShowsDAL()
@@ -21,7 +21,7 @@ export const getShows = async () => {
 
   cache.set<Show[]>('getShows', res)
 
-  return res
+  return count ? res.slice(0, count) : getShowsCache
 }
 
 export const getShow = async (showId: number) => {

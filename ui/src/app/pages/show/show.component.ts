@@ -46,9 +46,17 @@ export class ShowComponent implements OnInit {
         .getSeasons(this.showId)
         .subscribe((seasons: SeasonFromApi[]) => {
           this.seasons = seasons
+          //temp soulution
+          this.apiService
+            .getEpisodes(this.seasons[0].id)
+            .then((episodes: Episode[]) => {
+              this.episodes = episodes
+            })
         })
     })
     //episodes
+
+    //after selection
     this.selectedOption.valueChanges.subscribe((value) => {
       this.seasonId = Number(value)
       this.apiService.getEpisodes(this.seasonId).then((episodes: Episode[]) => {

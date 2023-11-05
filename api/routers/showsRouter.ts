@@ -8,7 +8,7 @@ import {
 export const router = express.Router()
 
 router.get('/', async (req, res) => {
-  const shows = await getShowsBLL()
+  const shows = await getShowsBLL(Number(req.query.count))
   res.send(shows)
 })
 

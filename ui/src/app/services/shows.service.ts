@@ -12,8 +12,10 @@ export class ShowsService {
 
   constructor(private http: HttpClient) {}
 
-  getShows(): Observable<Show[]> {
-    return this.http.get<Show[]>(this.apiUrlShows)
+  getShows(count?: Number): Observable<Show[]> {
+    return this.http.get<Show[]>(
+      `${this.apiUrlShows}${count ? `?count=${count}` : ''}`
+    )
   }
 
   getShow(id: number): Observable<Show> {
