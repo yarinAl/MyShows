@@ -1,10 +1,28 @@
 import { inject } from '@angular/core'
 import { ActivatedRouteSnapshot, ResolveFn } from '@angular/router'
-import { Show } from '../interfaces/show.interface'
+import { firstValueFrom } from 'rxjs'
+import { Episode, Season, Show } from '../interfaces/show.interface'
 import { ShowsService } from '../services/shows.service'
 
-export const ShowResolverService: ResolveFn<Show> = (
+interface data {
+  show: Show | null
+  seasons: Season[] | null
+  episodes: Episode[] | null
+}
+export const ShowResolverService: ResolveFn<data> = async (
   route: ActivatedRouteSnapshot
 ) => {
-  return inject(ShowsService).getShow(Number(route.paramMap.get('id')))
+  const showsService = inject(ShowsService)
+  const showId = Number(route.paramMap.get('id'))
+  const show = await firstValueFrom(showsService.getShow(showId))
+  const seasons = await firstValueFrom(showsService.getSeasons(showId))
+  const episodesOfFirstSeason = await firstValueFrom(
+    showsService.getEpisodes(Number(seasons[0].id))
+  )
+
+  return {
+    show: show,
+    seasons: seasons,
+    episodes: episodesOfFirstSeason,
+  }
 }

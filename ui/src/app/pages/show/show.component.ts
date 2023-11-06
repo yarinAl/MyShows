@@ -4,8 +4,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSelectModule } from '@angular/material/select'
 import { ActivatedRoute, Params, RouterModule } from '@angular/router'
-import { SeasonFromApi } from 'src/app/interfaces/seasons-from-api.interface'
-import { Episode, Show } from 'src/app/interfaces/show.interface'
+import { Episode, Season, Show } from 'src/app/interfaces/show.interface'
 import { ShowsService } from 'src/app/services/shows.service'
 
 @Component({
@@ -24,7 +23,7 @@ import { ShowsService } from 'src/app/services/shows.service'
 export class ShowComponent implements OnInit {
   showId: number = -1
   show: Show | null = null
-  seasons: SeasonFromApi[] | null = null
+  seasons: Season[] | null = null
   episodes: Episode[] | null = null
   selectedOption = new FormControl('Season 1')
   seasonId: number | null = null
@@ -38,30 +37,20 @@ export class ShowComponent implements OnInit {
     //shows
     this.activatedRoute.params.subscribe((params: Params) => {
       this.showId = +params['id']
-      this.activatedRoute.data.subscribe(({ show }) => {
-        this.show = show as Show
+      this.activatedRoute.data.subscribe((data: any) => {
+        this.show = data.show.show
+        this.seasons = data.show.seasons
+        this.episodes = data.show.episodes
       })
-      //seasons
-      this.apiService
-        .getSeasons(this.showId)
-        .subscribe((seasons: SeasonFromApi[]) => {
-          this.seasons = seasons
-          //temp soulution
-          this.apiService
-            .getEpisodes(this.seasons[0].id)
-            .then((episodes: Episode[]) => {
-              this.episodes = episodes
-            })
-        })
     })
-    //episodes
-
-    //after selection
+    //episodes from dropdown selection
     this.selectedOption.valueChanges.subscribe((value) => {
       this.seasonId = Number(value)
-      this.apiService.getEpisodes(this.seasonId).then((episodes: Episode[]) => {
-        this.episodes = episodes
-      })
+      this.apiService
+        .getEpisodes(this.seasonId)
+        .subscribe((episodes: Episode[]) => {
+          this.episodes = episodes
+        })
     })
   }
 }

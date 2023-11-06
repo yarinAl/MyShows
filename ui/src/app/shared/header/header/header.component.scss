@@ -25,16 +25,41 @@
   }
 
   .LeftPartLinks {
+    display: flex;
     margin-right: 50px;
 
-    .search {
-      color: #6c9dd9;
-      margin-right: 20px;
-      transform: scale(1.4);
+    .input-container {
+      display: flex;
+      margin-right: 10px;
+      background-color: rgb(44, 44, 57);
+      border-radius: 10px;
+      height: 35px;
+      width: 300px;
+      .search-icon,
+      .search-input {
+        color: rgb(183, 182, 182);
+        transform: scale(0.9);
+        background-color: rgb(44, 44, 57);
+        align-self: center;
+      }
+      .search-icon {
+        padding: 5px;
+      }
+      .search-input {
+        width: 300px;
+        font-size: 1rem;
+        &::placeholder {
+          color: rgb(183, 182, 182);
+          text-align: left;
+        }
+      }
+      input {
+        all: unset;
+      }
     }
 
     .profile {
-      color: #6c9dd9;
+      color: #ffffff;
       transform: scale(1.4);
     }
   }

@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ shows }) => {
       this.shows = shows
-      console.log(shows)
     })
   }
 }

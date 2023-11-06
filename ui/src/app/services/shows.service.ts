@@ -26,17 +26,17 @@ export class ShowsService {
     return this.http.get<Season[]>(`${this.apiUrlShows}/${showId}/seasons`)
   }
 
-  getEpisodes(seasonId: number): Promise<Episode[]> {
-    return new Promise(async (res, rej) => {
-      this.http
-        .get<Episode[]>(`${this.apiUrlSeasons}/${seasonId}/episodes`)
-        .subscribe((episodes: Episode[]) => {
-          res(episodes)
-        })
-    })
+  getEpisodes(seasonId: number) {
+    return this.http.get<Episode[]>(
+      `${this.apiUrlSeasons}/${seasonId}/episodes`
+    )
   }
 
   getEpisode(episodeId: number) {
     return this.http.get<Episode>(`${this.apiUrlEpisode}/${episodeId}`)
+  }
+
+  getSearchResults() {
+    const shows = this.getShows
   }
 }
