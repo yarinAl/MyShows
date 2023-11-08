@@ -1,7 +1,7 @@
 export interface Show {
   id: number
   name: string
-  image: string
+  image: string | null
   summary: string
   seasons: Season[]
 }

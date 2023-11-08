@@ -8,7 +8,11 @@
 
 ## ui
 
-- search by name - every keystroke, from second character, call api get to search (api+ui)
+- search add autocomplete from angular material
+
+- clicking on autocomplete show item, will navigate to show page
+
+- authentication api (access token & refresh token(node-cache) )
 
 - when going to previous page i want episodes from the same season i just entered the episode from
   season 1 press episode 1 --> go to episode 1 of first season
@@ -50,6 +54,7 @@ mongoDB - best if we want to do best practice
 ## Cache:
 
 redis - best if we want to store cache of data (not so good if the data is based on the user)
+node-cache
 
 pages:
 home

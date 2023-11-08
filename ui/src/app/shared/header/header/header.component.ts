@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormControl, ReactiveFormsModule } from '@angular/forms'
 import { MatIconModule } from '@angular/material/icon'
 import { RouterModule } from '@angular/router'
-import { delay, filter, firstValueFrom } from 'rxjs'
+import { Observable, debounceTime, of, switchMap } from 'rxjs'
 import { Show } from 'src/app/interfaces/show.interface'
 import { ShowsService } from 'src/app/services/shows.service'
 
@@ -15,23 +15,21 @@ import { ShowsService } from 'src/app/services/shows.service'
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  foundShows$: Observable<Show[]> | undefined
+  searchText = new FormControl('')
+
   constructor(private showService: ShowsService) {}
 
-  searchText = new FormControl('')
-  counter = 0
-  foundShows: Show[] = []
   ngOnInit(): void {
-    this.searchText.valueChanges
-      .pipe(
-        filter((value) => !!value && value.length >= 2),
-        delay(500)
-      )
-      .subscribe(async (value) => {
-        if (value)
-          this.foundShows = await firstValueFrom(
-            this.showService.getSearchResults(value)
-          )
-        console.log(this.foundShows)
+    this.foundShows$ = this.searchText.valueChanges.pipe(
+      debounceTime(200),
+      switchMap((value) => {
+        if (!value || value.length < 2) {
+          return of([])
+        }
+
+        return this.showService.getSearchResults(value)
       })
+    )
   }
 }

@@ -7,7 +7,7 @@ import { ShowsService } from '../services/shows.service'
 export const ShowsResolverService: ResolveFn<Show[]> = async () => {
   const shows = await firstValueFrom(inject(ShowsService).getShows(24))
   const imageUrls = shows.map((show) => show.image)
-  const imagesPromises = imageUrls.map((imageUrl) => fetch(imageUrl))
+  const imagesPromises = imageUrls.map((imageUrl) => fetch(imageUrl ?? ''))
   const imagesData = await Promise.all(imagesPromises)
   const blobsPromises = imagesData.map((imageData) => imageData.blob())
   const blobs = await Promise.all(blobsPromises)

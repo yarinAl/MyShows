@@ -39,7 +39,7 @@ export const getShow = async (showId: number) => {
   return res
 }
 
-export const getShowSeasons = async (showId: number) => {
+export const getShowSeasons = async (showId: number): Promise<Season[]> => {
   const getShowSeasonsCache = cache.get<Season[]>(`getShowSeasons:${showId}`)
 
   if (getShowSeasonsCache) {
@@ -57,13 +57,13 @@ export const getShowSeasons = async (showId: number) => {
   return res
 }
 
-function convertApiShowToShow(show: ShowFromApi): Show {
+export function convertApiShowToShow(show: ShowFromApi): Show {
   const summary = sanitize(show.summary)
 
   return {
     id: show.id,
     name: show.name,
-    image: show.image.original,
+    image: show.image?.original ?? null,
     summary: summary ?? '',
     seasons: [],
   }

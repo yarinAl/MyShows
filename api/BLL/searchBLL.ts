@@ -1,6 +1,13 @@
-import { getSearchResults as getSearchResultsDAL } from '../DAL/searchDAL'
+import { searchShows as searchShowsDAL } from '../DAL/searchDAL'
+import { ShowSearchFromApi } from '../models/search'
+import { convertApiShowToShow } from './showsBLL'
 
 export const getSearchResults = async (search: string) => {
-  const searchResults = await getSearchResultsDAL(search)
-  return searchResults
+  const searchShowsData = await searchShowsDAL(search)
+
+  const shows = searchShowsData.map((searchShow: ShowSearchFromApi) =>
+    convertApiShowToShow(searchShow.show)
+  )
+
+  return shows
 }

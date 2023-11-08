@@ -20,3 +20,7 @@
     </button>
   </div>
 </div>
+
+<div *ngFor="let show of foundShows$ | async" style="color: #fff">
+  {{ show.name }}
+</div>

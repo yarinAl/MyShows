@@ -38,7 +38,7 @@ export class ShowsService {
   }
 
   getSearchResults(search: string) {
-    return this.http.get<Show[]>(`${this.apiUrlSearch}/${search}`)
+    return this.http.get<Show[]>(`${this.apiUrlSearch}?q=${search}`)
   }
 }
 
