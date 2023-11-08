@@ -9,6 +9,7 @@ export class ShowsService {
   private apiUrlShows = `${this.apiUrl}/shows`
   private apiUrlSeasons = `${this.apiUrl}/seasons`
   private apiUrlEpisode = `${this.apiUrl}/episodes`
+  private apiUrlSearch = `${this.apiUrl}/search`
 
   constructor(private http: HttpClient) {}
 
@@ -36,7 +37,11 @@ export class ShowsService {
     return this.http.get<Episode>(`${this.apiUrlEpisode}/${episodeId}`)
   }
 
-  getSearchResults() {
-    const shows = this.getShows
+  getSearchResults(search: string) {
+    return this.http.get<Show[]>(`${this.apiUrlSearch}/${search}`)
   }
 }
+
+// 2 options:
+// 1. get all shows from api, and then filter in the ui
+// 2. call api call that get only the results of the search

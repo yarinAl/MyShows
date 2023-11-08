@@ -21,10 +21,3 @@ router.get('/:id/seasons', async (req, res) => {
   const seasons = await getShowSeasonsBLL(Number(req.params.id))
   res.send(seasons)
 })
-
-router.get('/search', async (req, res) => {
-  const shows = await getShowsBLL()
-  res.send(shows)
-})
-
-// search?keyword=ga
