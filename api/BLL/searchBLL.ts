@@ -5,9 +5,11 @@ import { convertApiShowToShow } from './showsBLL'
 export const getSearchResults = async (search: string) => {
   const searchShowsData = await searchShowsDAL(search)
 
-  const shows = searchShowsData.map((searchShow: ShowSearchFromApi) =>
-    convertApiShowToShow(searchShow.show)
-  )
-
+  const shows = searchShowsData
+    .slice(0, 5)
+    .map((searchShow: ShowSearchFromApi) =>
+      convertApiShowToShow(searchShow.show)
+    )
+  console.log(shows)
   return shows
 }

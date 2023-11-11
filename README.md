@@ -4,11 +4,11 @@
 
 ## api
 
-- implement search route
+- none for now
 
 ## ui
 
-- search add autocomplete from angular material
+- transfer autocomplete to new componenet, make it "talk" to the header and transfer the shows data to it
 
 - clicking on autocomplete show item, will navigate to show page
 

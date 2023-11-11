@@ -1,3 +1,37 @@
+::ng-deep {
+  .cdk-overlay-pane {
+    width: 300px !important;
+    margin-left: -45px !important;
+
+    .auto-complete-container {
+      display: grid !important;
+      gap: 10px !important;
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+      max-height: initial !important;
+
+      > mat-option {
+        background: #1d252c !important;
+        border-radius: 15px !important;
+        min-height: 58px !important;
+
+        > .mdc-list-item__primary-text {
+          > .text-content {
+            > .title {
+            }
+
+            > .content {
+            }
+          }
+
+          > .image-content {
+          }
+        }
+      }
+    }
+  }
+}
+
 .container {
   display: flex;
   justify-content: space-between;

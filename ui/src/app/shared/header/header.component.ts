@@ -1,16 +1,33 @@
 import { CommonModule } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
-import { FormControl, ReactiveFormsModule } from '@angular/forms'
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatIconModule } from '@angular/material/icon'
 import { RouterModule } from '@angular/router'
 import { Observable, debounceTime, of, switchMap } from 'rxjs'
 import { Show } from 'src/app/interfaces/show.interface'
 import { ShowsService } from 'src/app/services/shows.service'
 
+// import {map, startWith} from 'rxjs/operators';
+import { AsyncPipe } from '@angular/common'
+import { MatAutocompleteModule } from '@angular/material/autocomplete'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
+
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MatIconModule, RouterModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    AsyncPipe,
+  ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
