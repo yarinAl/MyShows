@@ -6,40 +6,13 @@
     <a class="headerLink" routerLink="routeName">Top Imbd</a>
   </div>
   <div class="LeftPartLinks">
-    <div class="input-container">
-      <mat-icon class="search-icon">search</mat-icon>
-      <input
-        class="search-input"
-        type="text"
-        aria-label="shows"
-        matInput
-        [formControl]="searchText"
-        [matAutocomplete]="auto"
-      />
-      <mat-autocomplete #auto="matAutocomplete" class="auto-complete-container">
-        <mat-option
-          class="search-input"
-          *ngFor="let show of (foundShows$ | async)?.slice(0, 5)"
-          [value]="show"
-        >
-          <div class="text-content">
-            <div class="title">
-              {{ show.name }}
-            </div>
-            <div class="content">Example text and more *</div>
-          </div>
-          <div class="image-content">
-            <img [src]="show.image" width="50px" />
-          </div>
-        </mat-option>
-      </mat-autocomplete>
-    </div>
+    <app-autocomplete
+      [formControl]="searchText"
+      [items]="autoCompleteItems$ | async"
+      (optionClick)="onAutoCompleteOptionClick($event)"
+    ></app-autocomplete>
     <button class="profile" aria-label="profile">
       <mat-icon>account_circle</mat-icon>
     </button>
   </div>
 </div>
-
-<!-- <div *ngFor="let show of foundShows$ | async" style="color: #fff">
-  {{ show.name }}
-</div> -->

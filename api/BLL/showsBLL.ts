@@ -63,7 +63,8 @@ export function convertApiShowToShow(show: ShowFromApi): Show {
   return {
     id: show.id,
     name: show.name,
-    image: show.image?.original ?? null,
+    image:
+      show.image?.original ?? 'https://freesvg.org/img/1699712564Centaur2.png',
     summary: summary ?? '',
     seasons: [],
   }

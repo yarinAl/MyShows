@@ -1,0 +1,108 @@
+.input-container {
+  display: flex;
+  margin-right: 10px;
+  background: #1d252c;
+  border-radius: 10px;
+  height: 35px;
+  width: 300px;
+  .search-icon,
+  .search-input {
+    color: rgb(183, 182, 182);
+    transform: scale(0.9);
+    background: #1d252c;
+    align-self: center;
+  }
+  .search-icon {
+    padding: 5px;
+  }
+  .search-input {
+    width: 300px;
+    font-size: 1rem;
+    &::placeholder {
+      color: rgb(183, 182, 182);
+      text-align: left;
+    }
+  }
+  input {
+    all: unset;
+  }
+}
+
+::ng-deep {
+  .cdk-overlay-pane {
+    width: 300px !important;
+    margin-left: -45px !important;
+
+    .auto-complete-container {
+      display: grid !important;
+      gap: 10px !important;
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+      max-height: initial !important;
+      background: #13181c;
+      &.mdc-menu-surface {
+        margin-top: 5px !important;
+      }
+
+      > mat-option {
+        background: #1d252c !important;
+
+        border-radius: 15px !important;
+        min-height: 58px !important;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.58) !important;
+          .text-content {
+            .title {
+              color: rgb(53, 158, 210);
+            }
+          }
+        }
+
+        &:hover {
+          > .mdc-list-item__primary-text {
+            img {
+              clip-path: polygon(15% 0, 100% 0%, 100% 100%, 0 100%);
+            }
+          }
+        }
+
+        &.mat-mdc-option {
+          padding-right: 0 !important;
+        }
+
+        > .mdc-list-item__primary-text {
+          display: flex;
+          width: 100%;
+          justify-content: space-between;
+          padding-right: 0 !important;
+
+          > .text-content {
+            display: flex;
+            flex-direction: column;
+
+            > .title {
+            }
+
+            > .content {
+              font-size: 0.85rem;
+            }
+          }
+
+          > .image-content {
+            width: 60px;
+            height: 70px;
+            // background-image: url('https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg') !important;
+          }
+          img {
+            height: 100%;
+            width: 60px;
+            clip-path: polygon(35% 0, 100% 0%, 100% 100%, 20% 100%);
+            // clip-path: polygon(15% 0, 100% 0%, 100% 100%, 0 100%);
+            transition: clip-path 500ms;
+          }
+        }
+      }
+    }
+  }
+}

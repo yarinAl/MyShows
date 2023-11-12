@@ -14,7 +14,7 @@ export interface ShowFromApi {
 export interface Show {
   id: number
   name: string
-  image: string | null
+  image: string
   summary: string
   seasons: Season[]
 }

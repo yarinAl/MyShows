@@ -1,0 +1,35 @@
+<div class="input-container">
+  <mat-icon class="search-icon">search</mat-icon>
+  <input
+    class="search-input"
+    type="text"
+    aria-label="search input"
+    matInput
+    [(ngModel)]="value"
+    [matAutocomplete]="auto"
+    (input)="onInput()"
+    (blur)="onBlur()"
+  />
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    [displayWith]="displayFn"
+    class="auto-complete-container"
+  >
+    <mat-option
+      class="search-input"
+      *ngFor="let item of items"
+      [value]="item"
+      (click)="optionClicked(item)"
+    >
+      <div class="text-content">
+        <div class="title">
+          {{ item.title }}
+        </div>
+        <div class="content">Example text and more *</div>
+      </div>
+      <div class="image-content">
+        <img [src]="item.image" />
+      </div>
+    </mat-option>
+  </mat-autocomplete>
+</div>
