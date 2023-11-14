@@ -8,10 +8,6 @@
 
 ## ui
 
-- transfer autocomplete to new componenet, make it "talk" to the header and transfer the shows data to it
-
-- clicking on autocomplete show item, will navigate to show page
-
 - authentication api (access token & refresh token(node-cache) )
 
 - when going to previous page i want episodes from the same season i just entered the episode from

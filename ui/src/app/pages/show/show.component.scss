@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: row;
-  background-color: #2d2d2d;
+  background: #1d252c;
   height: 400px;
   width: 1200px;
   margin: auto;
@@ -9,7 +9,7 @@
   margin-top: 20px;
 
   .ratings {
-    background-color: #636464;
+    background-color: #343a53;
     position: absolute;
     right: 0;
     top: 0;
@@ -26,12 +26,30 @@
     margin: 30px 30px 30px 20px;
     color: aliceblue;
   }
-  .seasons {
-    color: aliceblue;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    right: 100px;
+}
+
+.seasons {
+  display: flex;
+  color: aliceblue;
+  margin-right: 1070px;
+  margin-top: 20px;
+}
+
+::ng-deep {
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: #121212 !important;
+    border: 1px solid;
+    border-radius: 20px;
+    width: 130px;
+  }
+  .mdc-menu-surface.mat-mdc-select-panel {
+    width: 200px;
+    margin-left: 50px !important;
+    position: static;
+    padding: 8px 0;
+    background: #1d252c;
+    list-style-type: none;
+    max-height: 100% !important;
   }
 }
 .list-container-wrapper {
@@ -48,7 +66,7 @@
     display: flex;
     flex-direction: column;
     color: white;
-    background-color: #312e2e;
+    background: #1d252c;
     padding: 10px;
     border-radius: 2px;
 

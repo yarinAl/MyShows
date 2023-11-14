@@ -5,6 +5,8 @@
     <h2>{{ show?.name }}</h2>
     <p [innerHTML]="show?.summary"></p>
   </div>
+</div>
+<div class="list-container-wrapper">
   <div class="seasons">
     <mat-form-field>
       <mat-select [formControl]="selectedOption" placeholder="Season 1">
@@ -14,8 +16,6 @@
       </mat-select>
     </mat-form-field>
   </div>
-</div>
-<div class="list-container-wrapper">
   <ul class="list-container">
     <li class="list-item" *ngFor="let episode of episodes">
       <a [routerLink]="'/episode/' + [episode.id]">

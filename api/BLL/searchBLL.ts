@@ -10,6 +10,5 @@ export const getSearchResults = async (search: string) => {
     .map((searchShow: ShowSearchFromApi) =>
       convertApiShowToShow(searchShow.show)
     )
-  console.log(shows)
   return shows
 }
