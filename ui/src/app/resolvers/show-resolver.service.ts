@@ -12,12 +12,19 @@ interface data {
 export const ShowResolverService: ResolveFn<data> = async (
   route: ActivatedRouteSnapshot
 ) => {
+  console.log('show resolver')
   const showsService = inject(ShowsService)
+
   const showId = Number(route.paramMap.get('id'))
+  const seasonId = route.paramMap.get('seasonId')
+
   const show = await firstValueFrom(showsService.getShow(showId))
   const seasons = await firstValueFrom(showsService.getSeasons(showId))
+
   const episodesOfFirstSeason = await firstValueFrom(
-    showsService.getEpisodes(Number(seasons[0].id))
+    showsService.getEpisodes(
+      seasonId ? Number(seasonId) : Number(seasons[0].id)
+    )
   )
 
   return {

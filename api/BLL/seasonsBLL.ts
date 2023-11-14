@@ -33,6 +33,7 @@ function convertApiEpisodeToEpisode(episode: EpisodeFromApi): Episode {
 
   return {
     id: episode.id,
+    season: episode.season,
     number: episode.number,
     name: episode.name,
     image: imageUrl,

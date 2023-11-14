@@ -27,7 +27,7 @@ export class ShowsService {
     return this.http.get<Season[]>(`${this.apiUrlShows}/${showId}/seasons`)
   }
 
-  getEpisodes(seasonId: number) {
+  getEpisodes(seasonId: number): Observable<Episode[]> {
     return this.http.get<Episode[]>(
       `${this.apiUrlSeasons}/${seasonId}/episodes`
     )
