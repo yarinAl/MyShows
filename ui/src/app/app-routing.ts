@@ -21,15 +21,6 @@ export const ROUTES: Route[] = [
     resolve: {
       show: ShowResolverService,
     },
-    // children: [
-    //   {
-    //     path: 'season/:seasonId',
-    //     component: ShowComponent,
-    //     resolve: {
-    //       season: SeasonResolverService,
-    //     },
-    //   },
-    // ],
   },
   {
     path: 'show/:id/season/:seasonId',

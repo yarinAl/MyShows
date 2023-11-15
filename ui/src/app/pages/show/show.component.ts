@@ -38,59 +38,23 @@ export class ShowComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // console.log('render')
-
-    // this.activatedRoute.data.subscribe((data: any) => {
-    //   console.log('data', data)
-    // })
-
-    // console.log(this.activatedRoute)
-
-    // this.activatedRoute.firstChild?.data.subscribe((data: any) => {
-    //   console.log('data', data)
-    // })
-
-    //seasons
-    // this.navigationEndSubscription = this.router.events
-    //   .pipe(filter((event) => event instanceof NavigationEnd))
-    //   .subscribe(() => {
-
-    //   })
-
     //shows
     this.paramsSubscription = this.activatedRoute.params.subscribe(
       (params: Params) => {
         console.log('show', params)
         this.showId = Number(params['id'])
         const seasonId = params['seasonId']
-        // console.log('ssssssssssssss', seasonId)
         this.selectedOption.patchValue(seasonId ? Number(seasonId) : 1)
-
         this.activatedRoute.data.subscribe((data: any) => {
-          // console.log('data', data)
-
           this.show = data.show.show
           this.seasons = data.show.seasons
           this.episodes = data.show.episodes
         })
-        // console.log(this.activatedRoute.snapshot.params)
-        // if (this.activatedRoute.firstChild?.snapshot.params['seasonId']) {
-        //   console.log('seasonId too!')
-
-        //   this.handleSeasonChange(
-        //     Number(this.activatedRoute.snapshot.firstChild?.params['seasonId'])
-        //   )
-        // }
       }
     )
     //episodes from dropdown selection
     this.selectedOption.valueChanges.subscribe((value) => {
-      // console.log(3212312, value)
-      this.router.navigate([`show/${this.showId}/season/`, value], {
-        // relativeTo: this.activatedRoute,
-        // replaceUrl: true,
-      })
-      // this.handleSeasonChange(Number(value))
+      this.router.navigate([`show/${this.showId}/season/`, value], {})
     })
   }
 

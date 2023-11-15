@@ -41,7 +41,3 @@ export class ShowsService {
     return this.http.get<Show[]>(`${this.apiUrlSearch}?q=${search}`)
   }
 }
-
-// 2 options:
-// 1. get all shows from api, and then filter in the ui
-// 2. call api call that get only the results of the search
