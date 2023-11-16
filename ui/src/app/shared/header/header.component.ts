@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { Router, RouterModule } from '@angular/router'
 import { Observable, debounceTime, map, of, switchMap } from 'rxjs'
-import { Show } from 'src/app/interfaces/show.interface'
+import { ShowSearch } from 'src/app/interfaces/show.interface'
 import { ShowsService } from 'src/app/services/shows.service'
 import {
   AutoCompleteComponent,
@@ -48,11 +48,12 @@ export class HeaderComponent implements OnInit {
 
         return this.showService.getSearchResults(value)
       }),
-      map((shows: Show[]) =>
+      map((shows: ShowSearch[]) =>
         shows.map((show) => ({
           id: `${show.id}`,
           title: show.name,
           image: show.image,
+          info: `${show.rating} | ${show.language} | ${show.premiered}`,
         }))
       )
     )

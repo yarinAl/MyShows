@@ -25,7 +25,9 @@
         <div class="title">
           {{ item.title }}
         </div>
-        <div class="content">Example text and more *</div>
+        <div class="content">
+          <mat-icon class="rating-star">star</mat-icon>{{ item.info }}
+        </div>
       </div>
       <div class="image-content">
         <img [src]="item.image" />

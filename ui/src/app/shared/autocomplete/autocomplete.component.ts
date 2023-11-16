@@ -16,6 +16,7 @@ export interface AutoCompleteItem {
   id: string
   title: string
   image: string
+  info: string
 }
 
 @Component({

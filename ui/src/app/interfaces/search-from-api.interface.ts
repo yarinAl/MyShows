@@ -1,4 +1,4 @@
-import { ShowSearchRawFromApi } from './show'
+import { ShowSearchRawFromApi } from './show-from-api.interface'
 
 export interface ShowSearchFromApi {
   score: number

@@ -4,7 +4,7 @@
   background: #1d252c;
   border-radius: 10px;
   height: 35px;
-  width: 300px;
+  width: 400px;
   .search-icon,
   .search-input {
     color: rgb(183, 182, 182);
@@ -29,6 +29,10 @@
 }
 
 ::ng-deep {
+  .mat-mdc-option .mat-icon,
+  .mat-mdc-option .mat-pseudo-checkbox-full {
+    margin-right: 0 !important;
+  }
   .cdk-overlay-pane {
     width: 300px !important;
     margin-left: -45px !important;
@@ -76,6 +80,7 @@
           width: 100%;
           justify-content: space-between;
           padding-right: 0 !important;
+          align-items: center;
 
           > .text-content {
             display: flex;
@@ -85,7 +90,12 @@
             }
 
             > .content {
-              font-size: 0.85rem;
+              color: rgb(183, 182, 182);
+              display: flex;
+              font-size: 0.8rem;
+              .rating-star {
+                transform: scale(0.65);
+              }
             }
           }
 

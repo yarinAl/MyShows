@@ -20,3 +20,12 @@ export interface Episode {
   image: string
   summary: string
 }
+
+export interface ShowSearch {
+  id: number
+  name: string
+  image: string
+  language: string
+  premiered: string
+  rating: string
+}

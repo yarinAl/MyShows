@@ -10,10 +10,6 @@
 
 - authentication api (access token & refresh token(node-cache) )
 
-- when going to previous page i want episodes from the same season i just entered the episode from
-  season 1 press episode 1 --> go to episode 1 of first season
-  pressing back --> show all episodes of same season (1 in that case)
-
 - responsive in other pages
 
 ## later

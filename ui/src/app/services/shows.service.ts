@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { Episode, Season, Show } from '../interfaces/show.interface'
+import { Episode, Season, Show, ShowSearch } from '../interfaces/show.interface'
 
 @Injectable()
 export class ShowsService {
@@ -38,6 +38,6 @@ export class ShowsService {
   }
 
   getSearchResults(search: string) {
-    return this.http.get<Show[]>(`${this.apiUrlSearch}?q=${search}`)
+    return this.http.get<ShowSearch[]>(`${this.apiUrlSearch}?q=${search}`)
   }
 }
