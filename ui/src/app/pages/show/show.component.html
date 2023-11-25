@@ -1,5 +1,11 @@
 <div class="container">
-  <div class="ratings">7 stars Rating</div>
+  <div class="ratings">
+    <div class="d-flex rating-list align-items-center">
+      <div class="w-50">
+        <ngx-star-rating [id]="'rating'"></ngx-star-rating>
+      </div>
+    </div>
+  </div>
   <img [src]="show?.image" alt="" srcset="" />
   <div class="text-content">
     <h2>{{ show?.name }}</h2>

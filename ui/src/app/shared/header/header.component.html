@@ -5,6 +5,44 @@
     <a class="headerLink" routerLink="routeName">Anime</a>
     <a class="headerLink" routerLink="routeName">Top Imbd</a>
   </div>
+
+  <!-- Or Jerby -->
+  <!-- <form (submit)="onSubmit(inputRef)">
+    <p style="color: #fff">name:</p>
+    <input #inputRef style="display: block" type="text" />
+    <button style="color: #fff">login</button>
+  </form> -->
+  <form [formGroup]="form">
+    <fieldset>
+      <legend style="color: #fff">Login</legend>
+      <div>
+        <input
+          placeholder="email"
+          name="email"
+          type="text"
+          formControlName="email"
+          class="form-control"
+        />
+      </div>
+      <div>
+        <input
+          placeholder="password"
+          name="password"
+          type="password"
+          formControlName="password"
+        />
+      </div>
+    </fieldset>
+    <div class="form-buttons">
+      <button
+        style="color: #fff; background-color: rgb(71, 45, 157)"
+        class="button button-primary"
+        (click)="login()"
+      >
+        Login
+      </button>
+    </div>
+  </form>
   <div class="LeftPartLinks">
     <app-autocomplete
       [formControl]="searchText"

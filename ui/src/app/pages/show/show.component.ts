@@ -4,6 +4,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSelectModule } from '@angular/material/select'
 import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router'
+import { NgxStarRatingModule } from 'ngx-star-rating'
 import { Subscription } from 'rxjs'
 import { Episode, Season, Show } from 'src/app/interfaces/show.interface'
 import { ShowsService } from 'src/app/services/shows.service'
@@ -17,6 +18,7 @@ import { ShowsService } from 'src/app/services/shows.service'
     MatSelectModule,
     ReactiveFormsModule,
     MatIconModule,
+    NgxStarRatingModule,
   ],
   templateUrl: './show.component.html',
   styleUrls: ['./show.component.scss'],
@@ -41,7 +43,6 @@ export class ShowComponent implements OnInit, OnDestroy {
     //shows
     this.paramsSubscription = this.activatedRoute.params.subscribe(
       (params: Params) => {
-        console.log('show', params)
         this.showId = Number(params['id'])
         const seasonId = params['seasonId']
         this.selectedOption.patchValue(seasonId ? Number(seasonId) : 1)

@@ -21,6 +21,21 @@
     border-radius: 5px;
     border-top-right-radius: 0;
     color: aliceblue;
+    .rating-order-wrp {
+      .d-flex {
+        display: flex;
+      }
+      .align-items-center {
+        align-items: center;
+      }
+      .w-50 {
+        width: 50%;
+      }
+      .rating-list {
+        border-top: 1px solid #ddd;
+        padding: 15px 0;
+      }
+    }
   }
   .text-content {
     margin: 30px 30px 30px 20px;
@@ -36,6 +51,18 @@
 }
 
 ::ng-deep {
+  label.star {
+    padding: 0 5px !important;
+    font-size: 20px !important;
+    color: #ddd !important;
+    &::before {
+      content: '\f005' !important;
+    }
+    &:hover {
+      transform: rotate(0deg) scale(1.2) !important;
+      color: yellow !important;
+    }
+  }
   .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background-color: #121212 !important;
     border: 1px solid;

@@ -23,6 +23,6 @@ export function convertApiShowToShowSearch(
       show.image?.original ?? 'https://freesvg.org/img/1699712564Centaur2.png',
     language: show.language,
     premiered: show.premiered,
-    rating: show.rating.average ?? 1,
+    rating: show.rating.average ?? '--',
   }
 }

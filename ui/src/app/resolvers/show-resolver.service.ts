@@ -12,7 +12,6 @@ interface data {
 export const ShowResolverService: ResolveFn<data> = async (
   route: ActivatedRouteSnapshot
 ) => {
-  console.log('show resolver')
   const showsService = inject(ShowsService)
 
   const showId = Number(route.paramMap.get('id'))
