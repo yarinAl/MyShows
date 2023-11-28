@@ -9,7 +9,9 @@ import {
   Validators,
 } from '@angular/forms'
 import { MatAutocompleteModule } from '@angular/material/autocomplete'
+import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { MatFormFieldModule } from '@angular/material/form-field'
+
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { Router, RouterModule } from '@angular/router'
@@ -21,6 +23,7 @@ import {
   AutoCompleteComponent,
   AutoCompleteItem,
 } from '../autocomplete/autocomplete.component'
+import { DialogComponent } from '../dialog/dialog.component'
 
 @Component({
   selector: 'app-header',
@@ -36,6 +39,8 @@ import {
     ReactiveFormsModule,
     AsyncPipe,
     AutoCompleteComponent,
+    DialogComponent,
+    MatDialogModule,
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
@@ -49,23 +54,34 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private showService: ShowsService,
     private loginService: LoginService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public dialog: MatDialog
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     })
   }
+  openDialog(): void {
+    const user = this.form.value
 
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: { email: user.email, password: user.passowrd },
+    })
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed')
+    })
+  }
   login() {
-    const val = this.form.value
+    const user = this.form.value
 
-    if (val.email && val.password) {
-      this.loginService.login(val.email, val.passowrd).subscribe((user) => {
-        console.log(val.email, val.passowrd)
-        this.router.navigateByUrl('/')
-      })
-      console.log(val.email, val.passowrd)
+    if (user.email && user.password) {
+      // this.loginService.login(val.email, val.passowrd).subscribe((user) => {
+      // console.log(val.email, val.passowrd)
+      // this.router.navigateByUrl('/')
+      // })
+      console.log(user)
     }
   }
 

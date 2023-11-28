@@ -34,7 +34,7 @@
     margin-right: 0 !important;
   }
   .cdk-overlay-pane {
-    width: 300px !important;
+    width: 395px !important;
     margin-left: -45px !important;
 
     .auto-complete-container {
@@ -45,7 +45,7 @@
       max-height: initial !important;
       background: #13181c;
       &.mdc-menu-surface {
-        margin-top: 5px !important;
+        margin-top: 10px !important;
       }
 
       > mat-option {
@@ -86,8 +86,8 @@
             display: flex;
             flex-direction: column;
 
-            > .title {
-            }
+            // > .title {
+            // }
 
             > .content {
               color: rgb(183, 182, 182);
@@ -102,7 +102,6 @@
           > .image-content {
             width: 60px;
             height: 70px;
-            // background-image: url('https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg') !important;
           }
           img {
             height: 100%;

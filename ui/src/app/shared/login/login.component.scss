@@ -1,0 +1,15 @@
+::ng-deep {
+  .mat-mdc-dialog-container {
+    --mdc-dialog-container-color: #222020 !important;
+  }
+  .mat-mdc-text-field-wrapper {
+    width: 300px !important;
+  }
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: #1e1c1c;
+  }
+}
+
+.link {
+  color: rgb(73, 167, 204);
+}

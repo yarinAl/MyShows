@@ -1,0 +1,54 @@
+<form [formGroup]="form">
+  <h1 mat-dialog-title>Welcome</h1>
+  <div mat-dialog-content>
+    <p>Register</p>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        name="name"
+        type="text"
+        formControlName="name"
+        class="form-control"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        name="email"
+        type="text"
+        formControlName="email"
+        class="form-control"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        name="password"
+        type="password"
+        formControlName="password"
+      />
+    </mat-form-field>
+    <p>already have account? <a class="link" (click)="goToLogin()">login</a></p>
+  </div>
+
+  <div mat-dialog-actions>
+    <button
+      style="background-color: green"
+      mat-button
+      cdkFocusInitial
+      (click)="register()"
+    >
+      Sign Up
+    </button>
+    <button
+      style="background-color: rgb(221, 61, 61)"
+      mat-button
+      (click)="onNoClick()"
+    >
+      No Thanks
+    </button>
+  </div>
+</form>
