@@ -14,6 +14,7 @@ import {
 } from '@angular/material/dialog'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
+import { AuthService } from 'src/app/services/auth.service'
 import { DialogComponent } from '../dialog/dialog.component'
 
 export interface RegisterDialogData {
@@ -41,6 +42,7 @@ export class RegisterComponent {
   @Output() optionClick = new EventEmitter<boolean>()
 
   constructor(
+    private auth: AuthService,
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: RegisterDialogData,
     private fb: FormBuilder
@@ -55,7 +57,13 @@ export class RegisterComponent {
   register() {
     const user = this.form.value
     if (user.email && user.password && user.name) {
-      console.log(user)
+      this.auth.registerUser(user).subscribe({
+        next: (res) => {
+          console.log(res)
+          localStorage.setItem('token', res.token)
+        },
+        error: (err) => console.log(err),
+      })
     }
   }
   onNoClick(): void {

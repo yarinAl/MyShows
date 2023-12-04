@@ -14,6 +14,7 @@ import {
 } from '@angular/material/dialog'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
+import { AuthService } from 'src/app/services/auth.service'
 import { DialogComponent } from '../dialog/dialog.component'
 
 export interface LoginDialogData {
@@ -35,10 +36,12 @@ export interface LoginDialogData {
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+  loggedIn: boolean = false
   form: FormGroup
   @Output() optionClick = new EventEmitter<boolean>()
 
   constructor(
+    private auth: AuthService,
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: LoginDialogData,
     private fb: FormBuilder
@@ -52,7 +55,15 @@ export class LoginComponent {
   login() {
     const user = this.form.value
     if (user.email && user.password) {
-      console.log(user)
+      this.auth.login(user).subscribe({
+        next: (res) => {
+          console.log(res)
+          localStorage.setItem('token', res.token)
+          this.loggedIn = true
+        },
+        error: (err) => console.log(err),
+      })
+      this.dialogRef.close()
     }
   }
   onNoClick(): void {

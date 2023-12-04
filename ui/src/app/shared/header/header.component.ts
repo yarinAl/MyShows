@@ -17,7 +17,7 @@ import { MatInputModule } from '@angular/material/input'
 import { Router, RouterModule } from '@angular/router'
 import { Observable, debounceTime, map, of, switchMap } from 'rxjs'
 import { ShowSearch } from 'src/app/interfaces/show.interface'
-import { LoginService } from 'src/app/services/login.service'
+import { AuthService } from 'src/app/services/auth.service'
 import { ShowsService } from 'src/app/services/shows.service'
 import {
   AutoCompleteComponent,
@@ -46,14 +46,15 @@ import { DialogComponent } from '../dialog/dialog.component'
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  loggedIn: boolean = false
   autoCompleteItems$: Observable<AutoCompleteItem[]> | null = null
   searchText = new FormControl('')
   form: FormGroup
 
   constructor(
+    protected auth: AuthService,
     private router: Router,
     private showService: ShowsService,
-    private loginService: LoginService,
     private fb: FormBuilder,
     public dialog: MatDialog
   ) {
@@ -86,6 +87,10 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.auth.isLoggedIn.subscribe((loggedIn) => {
+    //   if (loggedIn) this.loggedIn = true
+    // })
+    // this.loggedIn = this.auth.loggedIn()
     this.autoCompleteItems$ = this.searchText.valueChanges.pipe(
       debounceTime(200),
       switchMap((value) => {

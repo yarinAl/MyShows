@@ -12,12 +12,19 @@
       (optionClick)="onAutoCompleteOptionClick($event)"
     ></app-autocomplete>
     <button
+      *ngIf="!(auth.isLoggedIn | async)"
       class="profile"
       aria-label="profile"
       mat-raised-button
       (click)="openDialog()"
     >
       <mat-icon>account_circle</mat-icon>
+    </button>
+    <button
+      style="color: rgb(13, 13, 13); background-color: wheat; padding: 6px"
+      *ngIf="auth.isLoggedIn | async"
+    >
+      loggedIn
     </button>
   </div>
 </div>

@@ -1,4 +1,5 @@
 import express from 'express'
+import { sign } from 'jsonwebtoken'
 import { login } from '../BLL/loginBLL'
 
 export const router = express.Router()
@@ -12,7 +13,9 @@ router.post('/', async (req, res) => {
     } else if (user.password !== req.body.password) {
       res.status(401).send('Invalid password')
     } else {
-      res.status(200).send(user)
+      let payload = { subject: user._id }
+      let token = sign(payload, 'secretKey')
+      res.status(200).send({ token })
     }
   } catch (error) {
     console.error(error)

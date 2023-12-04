@@ -4,13 +4,19 @@
 
 ## api
 
-- none for now
+- add base route of api (make more sense) /api
+- add jwt auth
+- make few shows filters to use in the links
 
 ## ui
 
-- authentication api (access token & refresh token(node-cache) )
+- authentication users (access token & refresh token(node-cache) )
 
 - responsive in other pages
+
+- fix phone display
+
+- make few shows filters to use in the links
 
 ## later
 
