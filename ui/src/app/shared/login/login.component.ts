@@ -36,7 +36,7 @@ export interface LoginDialogData {
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  loggedIn: boolean = false
+  // loggedIn: boolean = false
   form: FormGroup
   @Output() optionClick = new EventEmitter<boolean>()
 
@@ -57,9 +57,9 @@ export class LoginComponent {
     if (user.email && user.password) {
       this.auth.login(user).subscribe({
         next: (res) => {
-          console.log(res)
+          console.log('got res' + res)
           localStorage.setItem('token', res.token)
-          this.loggedIn = true
+          // this.loggedIn = true
         },
         error: (err) => console.log(err),
       })

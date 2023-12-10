@@ -68,6 +68,7 @@ export class HeaderComponent implements OnInit {
 
     const dialogRef = this.dialog.open(DialogComponent, {
       data: { email: user.email, password: user.passowrd },
+      panelClass: ['dialog'],
     })
 
     dialogRef.afterClosed().subscribe((result) => {
