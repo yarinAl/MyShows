@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
+import { MatMenuModule } from '@angular/material/menu'
 import { Router, RouterModule } from '@angular/router'
 import { Observable, debounceTime, map, of, switchMap } from 'rxjs'
 import { ShowSearch } from 'src/app/interfaces/show.interface'
@@ -41,6 +42,7 @@ import { DialogComponent } from '../dialog/dialog.component'
     AutoCompleteComponent,
     DialogComponent,
     MatDialogModule,
+    MatMenuModule,
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
