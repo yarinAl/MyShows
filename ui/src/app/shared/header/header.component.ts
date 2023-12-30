@@ -67,7 +67,6 @@ export class HeaderComponent implements OnInit {
   }
   openDialog(): void {
     const user = this.form.value
-
     const dialogRef = this.dialog.open(DialogComponent, {
       data: { email: user.email, password: user.passowrd },
       panelClass: ['dialog'],
@@ -79,21 +78,12 @@ export class HeaderComponent implements OnInit {
   }
   login() {
     const user = this.form.value
-
     if (user.email && user.password) {
-      // this.loginService.login(val.email, val.passowrd).subscribe((user) => {
-      // console.log(val.email, val.passowrd)
-      // this.router.navigateByUrl('/')
-      // })
       console.log(user)
     }
   }
 
   ngOnInit(): void {
-    // this.auth.isLoggedIn.subscribe((loggedIn) => {
-    //   if (loggedIn) this.loggedIn = true
-    // })
-    // this.loggedIn = this.auth.loggedIn()
     this.autoCompleteItems$ = this.searchText.valueChanges.pipe(
       debounceTime(200),
       switchMap((value) => {

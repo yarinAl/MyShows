@@ -15,7 +15,11 @@
 <div class="list-container-wrapper">
   <div class="seasons">
     <mat-form-field>
-      <mat-select [formControl]="selectedOption" placeholder="Season 1">
+      <mat-select
+        panelWidth="190px"
+        [formControl]="selectedOption"
+        placeholder="Season 1"
+      >
         <mat-option *ngFor="let season of seasons" [value]="season.id">
           Season {{ season.number }}
         </mat-option>

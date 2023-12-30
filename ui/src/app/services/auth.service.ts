@@ -24,11 +24,14 @@ export class AuthService {
     return this.http.post<any>(this.apiUrlLogin, user)
   }
 
-  // loggedIn() {
-  //   return !!localStorage.getItem('token')
-  // }
+  loggedInVal() {
+    return !!localStorage.getItem('token')
+  }
 
   get isLoggedIn() {
     return this.loggedIn.asObservable()
+  }
+  getToken() {
+    return localStorage.getItem('token')
   }
 }

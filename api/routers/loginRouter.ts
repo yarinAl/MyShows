@@ -7,7 +7,7 @@ export const router = express.Router()
 router.post('/', async (req, res) => {
   try {
     const user = await login(req.body)
-
+    console.log('user data is:' + user)
     if (!user) {
       res.status(401).send('Invalid email!')
     } else if (user.password !== req.body.password) {

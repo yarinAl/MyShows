@@ -1,6 +1,8 @@
 import { Route } from '@angular/router'
+import { authGuard } from './auth.guard'
 import { EpisodeComponent } from './pages/episode/episode.component'
 import { HomeComponent } from './pages/home/home.component'
+import { ProfileComponent } from './pages/profile/profile.component'
 import { ShowComponent } from './pages/show/show.component'
 import { EpisodeResolverService } from './resolvers/episode-resolver.service'
 import { ShowResolverService } from './resolvers/show-resolver.service'
@@ -35,6 +37,11 @@ export const ROUTES: Route[] = [
     resolve: {
       episode: EpisodeResolverService,
     },
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [authGuard],
   },
 
   // { path: 'home/show', component: ShowComponent },

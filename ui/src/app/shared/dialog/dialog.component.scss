@@ -1,5 +1,7 @@
 ::ng-deep {
   .dialog {
+    width: 375px !important;
+
     .mat-mdc-dialog-container {
       --mdc-dialog-container-color: #1d252c !important;
     }
