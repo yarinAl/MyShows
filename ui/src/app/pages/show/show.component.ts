@@ -3,10 +3,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { FormControl, ReactiveFormsModule } from '@angular/forms'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSelectModule } from '@angular/material/select'
-import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 import { NgxStarRatingModule } from 'ngx-star-rating'
 import { Subscription } from 'rxjs'
 import { Episode, Season, Show } from 'src/app/interfaces/show.interface'
+import { ShowResolverData } from 'src/app/resolvers/show-resolver.service'
 import { ShowsService } from 'src/app/services/shows.service'
 
 @Component({
@@ -41,20 +42,22 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     //shows
-    this.paramsSubscription = this.activatedRoute.params.subscribe(
-      (params: Params) => {
-        this.showId = Number(params['id'])
-        const seasonId = params['seasonId']
-        this.selectedOption.patchValue(seasonId ? Number(seasonId) : 1)
-        this.activatedRoute.data.subscribe((data: any) => {
-          this.show = data.show.show
-          this.seasons = data.show.seasons
-          this.episodes = data.show.episodes
-        })
+    this.activatedRoute.data.subscribe((data: any) => {
+      const showResolverData: ShowResolverData = data.showResolverData
+      this.show = showResolverData.show
+      this.showId = showResolverData.show.id
+      this.seasons = showResolverData.seasons
+      this.episodes = showResolverData.episodes
+      this.seasonId = showResolverData.seasonId
+
+      if (this.seasonId) {
+        this.selectedOption.patchValue(this.seasonId)
       }
-    )
+    })
+
     //episodes from dropdown selection
     this.selectedOption.valueChanges.subscribe((value) => {
+      console.log(value)
       this.router.navigate([`show/${this.showId}/season/`, value], {})
     })
   }

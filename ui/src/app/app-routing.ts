@@ -21,14 +21,14 @@ export const ROUTES: Route[] = [
     path: 'show/:id',
     component: ShowComponent,
     resolve: {
-      show: ShowResolverService,
+      showResolverData: ShowResolverService,
     },
   },
   {
     path: 'show/:id/season/:seasonId',
     component: ShowComponent,
     resolve: {
-      show: ShowResolverService,
+      showResolverData: ShowResolverService,
     },
   },
   {

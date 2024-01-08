@@ -4,12 +4,13 @@ import { firstValueFrom } from 'rxjs'
 import { Episode, Season, Show } from '../interfaces/show.interface'
 import { ShowsService } from '../services/shows.service'
 
-interface data {
-  show: Show | null
+export interface ShowResolverData {
+  show: Show
   seasons: Season[] | null
   episodes: Episode[] | null
+  seasonId: number | null
 }
-export const ShowResolverService: ResolveFn<data> = async (
+export const ShowResolverService: ResolveFn<ShowResolverData> = async (
   route: ActivatedRouteSnapshot
 ) => {
   const showsService = inject(ShowsService)
@@ -27,8 +28,9 @@ export const ShowResolverService: ResolveFn<data> = async (
   )
 
   return {
-    show: show,
-    seasons: seasons,
+    show,
+    seasons,
     episodes: episodesOfFirstSeason,
+    seasonId: seasonId ? Number(seasonId) : null,
   }
 }
